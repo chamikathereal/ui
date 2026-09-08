@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, Sparkles, X, ArrowRight, BookOpen, Layers, Terminal } from 'lucide-react';
+import { Search, X, ArrowRight, BookOpen, Layers, Terminal } from 'lucide-react';
 import { DenebStarIcon } from '@/components/brand/DenebLogo';
 
 export interface SearchItem {
@@ -77,10 +77,6 @@ export function SearchDialog({ isOpen, onClose }: { isOpen: boolean; onClose: ()
   }, [query]);
 
   useEffect(() => {
-    setSelectedIndex(0);
-  }, [query]);
-
-  useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) {
         if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -125,7 +121,10 @@ export function SearchDialog({ isOpen, onClose }: { isOpen: boolean; onClose: ()
             type="text"
             placeholder="Search documentation, components, or CLI..."
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setSelectedIndex(0);
+            }}
             className="flex-1 bg-transparent text-sm text-white placeholder-[#64748B] focus:outline-none"
           />
           <button
