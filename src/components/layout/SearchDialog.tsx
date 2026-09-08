@@ -1,0 +1,214 @@
+'use client';
+
+import React, { useState, useEffect, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
+import { Search, Sparkles, X, ArrowRight, BookOpen, Layers, Terminal } from 'lucide-react';
+import { DenebStarIcon } from '@/components/brand/DenebLogo';
+
+export interface SearchItem {
+  title: string;
+  category: 'Getting Started' | 'Components' | 'CLI' | 'Guides';
+  slug: string;
+  description: string;
+}
+
+export const SEARCH_INDEX: SearchItem[] = [
+  // Getting Started
+  { title: 'Introduction', category: 'Getting Started', slug: '/docs/introduction', description: 'Overview of the DENEB UI Framework and philosophy.' },
+  { title: 'Installation', category: 'Getting Started', slug: '/docs/installation', description: 'How to install and configure DENEB UI in your project.' },
+  { title: 'Theming & Tokens', category: 'Getting Started', slug: '/docs/theming', description: 'Customizing celestial themes, colors, and variables.' },
+  { title: 'CLI Reference', category: 'CLI', slug: '/docs/cli', description: 'All commands for @deneb-ui/cli (add, validate, init).' },
+  
+  // Core Primitives
+  { title: 'Button', category: 'Components', slug: '/docs/components/button', description: 'Interactive button with multiple celestial variants, sizes, and states.' },
+  { title: 'Card', category: 'Components', slug: '/docs/components/card', description: 'Container component with cosmic glow and header/content/footer slots.' },
+  { title: 'Badge', category: 'Components', slug: '/docs/components/badge', description: 'Status tags, indicator pills, and glowing metadata markers.' },
+  { title: 'Typography', category: 'Components', slug: '/docs/components/typography', description: 'Headings, paragraphs, and inline text primitives.' },
+  { title: 'Dialog / Modal', category: 'Components', slug: '/docs/components/dialog', description: 'Accessible modal dialog with backdrop blur and smooth transitions.' },
+  { title: 'Grid & Box', category: 'Components', slug: '/docs/components/grid', description: 'Responsive layout primitives for fast page composition.' },
+  { title: 'Image', category: 'Components', slug: '/docs/components/image', description: 'Optimized responsive image with fallback support.' },
+
+  // Smart Commerce Actions
+  { title: 'ContactActions', category: 'Components', slug: '/docs/components/contact-actions', description: 'Smart multi-channel contact bar (Phone, WhatsApp, Email).' },
+  { title: 'WhatsAppButton', category: 'Components', slug: '/docs/components/whatsapp-button', description: 'One-click chat launcher with dynamic link resolution.' },
+  { title: 'PhoneButton', category: 'Components', slug: '/docs/components/phone-button', description: 'Direct call action with tel: protocol and visual editing bindings.' },
+  { title: 'EmailButton', category: 'Components', slug: '/docs/components/email-button', description: 'Pre-formatted mailto action with subject line support.' },
+  { title: 'FloatingContactWidget', category: 'Components', slug: '/docs/components/floating-contact-widget', description: 'Sticky bottom-corner conversion widget.' },
+
+  // Location & Navigation
+  { title: 'LocationCard', category: 'Components', slug: '/docs/components/location-card', description: 'Storefront location card with map directions button.' },
+  { title: 'LocationLink', category: 'Components', slug: '/docs/components/location-link', description: 'Interactive map address trigger with directions.' },
+  { title: 'MapEmbed', category: 'Components', slug: '/docs/components/map-embed', description: 'Responsive Google Maps iframe embed with fallback.' },
+  { title: 'Address', category: 'Components', slug: '/docs/components/address', description: 'Structured semantic address component.' },
+
+  // Social & Business
+  { title: 'BusinessHours', category: 'Components', slug: '/docs/components/business-hours', description: 'Weekly schedule renderer with dynamic live Open/Closed badge.' },
+  { title: 'SocialLinks', category: 'Components', slug: '/docs/components/social-links', description: 'Filtered social channel container with brand icons.' },
+  { title: 'SocialButton', category: 'Components', slug: '/docs/components/social-button', description: 'Individual branded social media buttons.' },
+
+  // Storefront Sections
+  { title: 'Hero', category: 'Components', slug: '/docs/components/hero', description: 'Centered and split hero banner sections with CTA actions.' },
+  { title: 'ProductCard', category: 'Components', slug: '/docs/components/product-card', description: 'E-commerce product display with pricing, badge, and quick buy.' },
+  { title: 'PricingCard', category: 'Components', slug: '/docs/components/pricing-card', description: 'Tiered pricing card with feature checks and highlights.' },
+  { title: 'TestimonialCard', category: 'Components', slug: '/docs/components/testimonial-card', description: 'Customer review card with avatar and 5-star rating.' },
+  { title: 'ServiceCard', category: 'Components', slug: '/docs/components/service-card', description: 'Storefront service highlight card with icon and description.' },
+  { title: 'FAQAccordion', category: 'Components', slug: '/docs/components/faq-accordion', description: 'Expandable accordion for store policies and questions.' },
+  { title: 'AnnouncementBar', category: 'Components', slug: '/docs/components/announcement-bar', description: 'Top promotional banner for flash sales and free shipping.' },
+  { title: 'CategoryPills', category: 'Components', slug: '/docs/components/category-pills', description: 'Horizontal scrollable category filter pills.' },
+  { title: 'ContactForm', category: 'Components', slug: '/docs/components/contact-form', description: 'Storefront lead generation and inquiry form.' },
+  { title: 'Navbar', category: 'Components', slug: '/docs/components/navbar', description: 'Full storefront navigation bar with mobile drawer.' },
+  { title: 'Footer', category: 'Components', slug: '/docs/components/footer', description: 'Multi-column storefront footer with copyright and links.' },
+];
+
+export function SearchDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const [query, setQuery] = useState('');
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const router = useRouter();
+
+  const filtered = useMemo(() => {
+    if (!query.trim()) return SEARCH_INDEX.slice(0, 8);
+    const q = query.toLowerCase();
+    return SEARCH_INDEX.filter(
+      (item) =>
+        item.title.toLowerCase().includes(q) ||
+        item.description.toLowerCase().includes(q) ||
+        item.category.toLowerCase().includes(q)
+    );
+  }, [query]);
+
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [query]);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (!isOpen) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          onClose(); // toggle
+        }
+        return;
+      }
+
+      if (e.key === 'Escape') {
+        onClose();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev + 1) % (filtered.length || 1));
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev - 1 + filtered.length) % (filtered.length || 1));
+      } else if (e.key === 'Enter' && filtered[selectedIndex]) {
+        e.preventDefault();
+        router.push(filtered[selectedIndex].slug);
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isOpen, filtered, selectedIndex, router, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-150">
+      <div
+        className="w-full max-w-2xl rounded-2xl border border-[#23283B] bg-[#0C0F1A] shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Input Header */}
+        <div className="flex items-center px-4 py-3.5 border-b border-[#23283B] gap-3">
+          <Search className="w-5 h-5 text-[#818CF8]" />
+          <input
+            autoFocus
+            type="text"
+            placeholder="Search documentation, components, or CLI..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="flex-1 bg-transparent text-sm text-white placeholder-[#64748B] focus:outline-none"
+          />
+          <button
+            onClick={onClose}
+            className="p-1 rounded-md text-[#64748B] hover:text-white hover:bg-white/5 transition-colors"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Results List */}
+        <div className="max-h-96 overflow-y-auto p-2 divide-y divide-white/5">
+          {filtered.length === 0 ? (
+            <div className="py-12 text-center text-[#64748B] text-sm">
+              No results found for &ldquo;{query}&rdquo;
+            </div>
+          ) : (
+            filtered.map((item, idx) => {
+              const isSelected = idx === selectedIndex;
+              return (
+                <div
+                  key={item.slug}
+                  onClick={() => {
+                    router.push(item.slug);
+                    onClose();
+                  }}
+                  onMouseEnter={() => setSelectedIndex(idx)}
+                  className={`flex items-center justify-between px-3.5 py-3 rounded-xl cursor-pointer transition-all ${
+                    isSelected
+                      ? 'bg-[#818CF8]/15 border border-[#818CF8]/30 text-white'
+                      : 'hover:bg-white/5 text-[#CBD5E1]'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`p-2 rounded-lg border ${
+                        isSelected
+                          ? 'border-[#818CF8]/40 bg-[#818CF8]/20 text-[#818CF8]'
+                          : 'border-[#23283B] bg-[#121625] text-[#94A3B8]'
+                      }`}
+                    >
+                      {item.category === 'Components' ? (
+                        <Layers className="w-4 h-4" />
+                      ) : item.category === 'CLI' ? (
+                        <Terminal className="w-4 h-4" />
+                      ) : (
+                        <BookOpen className="w-4 h-4" />
+                      )}
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-sm text-white">{item.title}</span>
+                        <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-white/5 text-[#94A3B8]">
+                          {item.category}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[#94A3B8] line-clamp-1 mt-0.5">{item.description}</p>
+                    </div>
+                  </div>
+                  <ArrowRight
+                    className={`w-4 h-4 transition-transform ${
+                      isSelected ? 'text-[#818CF8] translate-x-1' : 'text-transparent'
+                    }`}
+                  />
+                </div>
+              );
+            })
+          )}
+        </div>
+
+        {/* Footer shortcuts */}
+        <div className="px-4 py-2.5 border-t border-[#23283B] bg-[#0A0D17] flex items-center justify-between text-[11px] text-[#64748B]">
+          <div className="flex items-center gap-3">
+            <span><kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white">↑</kbd> <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white">↓</kbd> to navigate</span>
+            <span><kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white">↵</kbd> to select</span>
+            <span><kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white">esc</kbd> to close</span>
+          </div>
+          <div className="flex items-center gap-1 text-[#818CF8]">
+            <DenebStarIcon className="w-3 h-3" />
+            <span className="font-mono">DENEB UI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -8,7 +8,6 @@ export default defineConfig({
       target: './src/lib/api/generated.ts',
       client: 'react-query',
       mode: 'tags-split',
-      prettier: true,
       override: {
         mutator: {
           path: './src/lib/axios.ts',
