@@ -75,7 +75,6 @@ export function SearchDialog({ isOpen, onClose }: { isOpen: boolean; onClose: ()
         item.category.toLowerCase().includes(q)
     );
   }, [query]);
-
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) {

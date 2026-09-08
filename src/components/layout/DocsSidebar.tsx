@@ -32,6 +32,7 @@ export const SIDEBAR_NAV: NavSection[] = [
     items: [
       { title: 'Introduction', href: '/docs/introduction' },
       { title: 'Installation', href: '/docs/installation' },
+      { title: 'Set Up Fivora', href: '/docs/setup-fivora', badge: 'Guide', isNew: true },
       { title: 'Theming & Tokens', href: '/docs/theming' },
       { title: 'CLI Reference', href: '/docs/cli' },
       { title: 'Storefront Scaffolding', href: '/docs/templates' },
@@ -109,15 +110,15 @@ export function DocsSidebar({
   const pathname = usePathname();
 
   return (
-    <aside className={`w-64 shrink-0 pb-12 pt-6 ${className}`}>
+    <aside className={`w-full pb-12 pt-6 text-sm ${className}`}>
       <div className="space-y-6">
         {SIDEBAR_NAV.map((section) => (
-          <div key={section.title} className="space-y-2">
+          <div key={section.title} className="space-y-1.5">
             <div className="flex items-center gap-2 px-3 text-xs font-semibold uppercase tracking-wider text-[#94A3B8]">
               {section.icon}
               <span>{section.title}</span>
             </div>
-            <ul className="space-y-1">
+            <ul className="space-y-0.5">
               {section.items.map((item) => {
                 const isActive = pathname === item.href;
                 return (
@@ -132,19 +133,18 @@ export function DocsSidebar({
                       }`}
                     >
                       <span className="truncate">{item.title}</span>
-                      <div className="flex items-center gap-1.5">
-                        {item.isNew && (
-                          <span className="text-[9px] font-semibold uppercase px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                            New
-                          </span>
-                        )}
-                        {item.badge && (
-                          <span className="text-[9px] font-semibold uppercase px-1.5 py-0.2 rounded bg-[#818CF8]/20 text-[#A5B4FC] border border-[#818CF8]/30">
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        {item.badge ? (
+                          <span className="text-[9px] font-semibold uppercase px-1.5 py-0.5 rounded bg-[#818CF8]/20 text-[#A5B4FC] border border-[#818CF8]/30">
                             {item.badge}
                           </span>
-                        )}
+                        ) : item.isNew ? (
+                          <span className="text-[9px] font-semibold uppercase px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                            New
+                          </span>
+                        ) : null}
                         {isActive && (
-                          <ChevronRight className="w-3.5 h-3.5 text-[#818CF8]" />
+                          <ChevronRight className="w-3 h-3 text-[#818CF8]" />
                         )}
                       </div>
                     </Link>
