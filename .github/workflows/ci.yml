@@ -46,3 +46,12 @@ jobs:
 
     - name: Build
       run: ${{ steps.detect-package-manager.outputs.manager }} run build
+
+    - name: Deploy to CapRover
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      uses: caprover/deploy-from-github@v1.1.2
+      with:
+        server: '${{ secrets.CAPROVER_SERVER }}'
+        app: 'deneb-web'
+        token: '${{ secrets.CAPROVER_APP_TOKEN }}'
+
