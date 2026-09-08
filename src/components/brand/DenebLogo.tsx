@@ -2,26 +2,39 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface DenebLogoProps {
   size?: 'sm' | 'md' | 'lg';
   asLink?: boolean;
   className?: string;
   showVersion?: boolean;
+  color?: 'blue' | 'white';
 }
 
-export function DenebStarIcon({ className = 'w-4 h-4', style }: { className?: string; style?: React.CSSProperties }) {
+export function DenebStarIcon({
+  className = 'w-4 h-4',
+  color = 'blue',
+  style,
+}: {
+  className?: string;
+  color?: 'blue' | 'white';
+  style?: React.CSSProperties;
+}) {
+  const iconSrc =
+    color === 'white'
+      ? '/assets/transperent-white-logo/1.png'
+      : '/assets/transperent-blue-logo/1.png';
+
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-      style={{ color: '#818CF8', ...style }}
-      aria-hidden="true"
-    >
-      {/* 4-point celestial star with subtle flares */}
-      <path d="M12 0C12.4 6.6 17.4 11.6 24 12C17.4 12.4 12.4 17.4 12 24C11.6 17.4 6.6 12.4 0 12C6.6 11.6 11.6 6.6 12 0Z" />
-    </svg>
+    <Image
+      src={iconSrc}
+      alt="Deneb Celestial Star"
+      width={48}
+      height={48}
+      className={`inline-block object-contain ${className}`}
+      style={style}
+    />
   );
 }
 
@@ -33,42 +46,43 @@ export function GitHubIcon({ className = 'w-4 h-4' }: { className?: string }) {
   );
 }
 
-export function DenebLogo({ size = 'md', asLink = true, className = '', showVersion = false }: DenebLogoProps) {
-  const sizeClasses = {
-    sm: 'px-2.5 py-1 text-xs gap-1.5',
-    md: 'px-3.5 py-1.5 text-sm gap-2',
-    lg: 'px-4 py-2 text-base gap-2.5',
+export function DenebLogo({
+  size = 'md',
+  asLink = true,
+  className = '',
+  showVersion = false,
+  color = 'blue',
+}: DenebLogoProps) {
+  const logoDimensions = {
+    sm: { width: 120, height: 24, className: 'h-6 w-auto' },
+    md: { width: 155, height: 31, className: 'h-7.5 w-auto' },
+    lg: { width: 210, height: 42, className: 'h-10 w-auto' },
   };
 
-  const starSizes = {
-    sm: 'w-3.5 h-3.5',
-    md: 'w-4 h-4',
-    lg: 'w-5 h-5',
-  };
+  const logoSrc =
+    color === 'white'
+      ? '/assets/transperent-white-cover-logo/3.png'
+      : '/assets/transperent-blue-cover-logo/3.png';
 
-  const badge = (
+  const { width, height, className: imgHeightClass } = logoDimensions[size];
+
+  const content = (
     <div
-      className={`inline-flex items-center rounded-lg border border-[#23283B] bg-[#0A0D17]/90 backdrop-blur-md shadow-sm transition-all duration-200 hover:border-[#818CF8]/50 hover:shadow-[0_0_16px_rgba(129,140,248,0.25)] group select-none ${sizeClasses[size]} ${className}`}
+      className={`inline-flex items-center gap-2 select-none group transition-all duration-200 ${className}`}
     >
-      <div className="relative flex items-center justify-center">
-        <DenebStarIcon className={`${starSizes[size]} transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12`} />
-        {/* Subtle star glow */}
-        <span className="absolute inset-0 rounded-full blur-sm bg-[#818CF8]/40 -z-10" />
+      <div className="relative flex items-center">
+        <Image
+          src={logoSrc}
+          alt="Deneb UI"
+          width={width}
+          height={height}
+          priority
+          className={`${imgHeightClass} object-contain transition-all duration-200 group-hover:brightness-110 group-hover:drop-shadow-[0_0_14px_rgba(129,140,248,0.45)]`}
+        />
       </div>
 
-      <span
-        className="font-black tracking-wider uppercase text-white font-sans transition-all duration-200"
-        style={{
-          textShadow:
-            '-1px 0 0.5px rgba(239,68,68,0.7), 1px 0 0.5px rgba(56,189,248,0.8), 0 0 10px rgba(129,140,248,0.4)',
-          letterSpacing: '0.08em',
-        }}
-      >
-        DENEB UI
-      </span>
-
       {showVersion && (
-        <span className="ml-1 text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-[#818CF8]/10 text-[#A5B4FC] border border-[#818CF8]/20">
+        <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-[#818CF8]/10 text-[#A5B4FC] border border-[#818CF8]/20 self-center">
           v2.0
         </span>
       )}
@@ -77,11 +91,14 @@ export function DenebLogo({ size = 'md', asLink = true, className = '', showVers
 
   if (asLink) {
     return (
-      <Link href="/" className="inline-block transition-transform active:scale-95 focus:outline-none">
-        {badge}
+      <Link
+        href="/"
+        className="inline-flex items-center transition-transform active:scale-95 focus:outline-none"
+      >
+        {content}
       </Link>
     );
   }
 
-  return badge;
+  return content;
 }

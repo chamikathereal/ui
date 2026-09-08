@@ -117,27 +117,28 @@ export function ContactButton({
 
   const variantStyles: Record<'primary' | 'secondary' | 'outline' | 'ghost' | 'whatsapp', React.CSSProperties> = {
     primary: {
-      backgroundColor: 'var(--color-primary, #0f172a)',
+      backgroundColor: '#818CF8',
       color: '#ffffff',
-      boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+      boxShadow: '0 2px 8px rgba(129, 140, 248, 0.25)',
     },
     secondary: {
-      backgroundColor: 'var(--color-secondary, #f1f5f9)',
-      color: 'var(--color-text, #0f172a)',
+      backgroundColor: 'var(--color-secondary, #141827)',
+      color: 'var(--color-text, #F1F5F9)',
+      border: '1px solid var(--color-border, #23283B)',
     },
     outline: {
       backgroundColor: 'transparent',
-      border: '1px solid var(--color-border, #e2e8f0)',
-      color: 'var(--color-text, #0f172a)',
+      border: '1px solid var(--color-border, #23283B)',
+      color: 'var(--color-text, #F1F5F9)',
     },
     ghost: {
       backgroundColor: 'transparent',
-      color: 'var(--color-text, #0f172a)',
+      color: 'var(--color-text, #F1F5F9)',
     },
     whatsapp: {
       backgroundColor: '#25D366',
       color: '#ffffff',
-      boxShadow: '0 2px 4px rgba(37, 211, 102, 0.2)',
+      boxShadow: '0 2px 8px rgba(37, 211, 102, 0.25)',
     },
   };
 
@@ -153,7 +154,7 @@ export function ContactButton({
       data-preview-field-path={fieldPath}
       target={shouldOpenNewTab ? '_blank' : undefined}
       rel={shouldOpenNewTab ? 'noopener noreferrer' : undefined}
-      className={`deneb-contact-btn deneb-contact-${type} ${className}`.trim()}
+      className={`deneb-contact-btn deneb-contact-${type} hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] ${className}`.trim()}
       style={mergedStyles}
       {...rest}
     >
