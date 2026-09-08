@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Terminal, Sparkles, Check, ArrowRight, ShieldCheck, Box, RefreshCw, FolderArchive, PackageCheck, Zap } from 'lucide-react';
+import { Terminal, Sparkles, Check, ArrowRight, ShieldCheck, Box, RefreshCw, FolderArchive, PackageCheck, Zap, Activity } from 'lucide-react';
 import { CodeBlock } from '@/components/docs/CodeBlock';
 import { TableOfContents, TocItem } from '@/components/layout/TableOfContents';
 import { DenebStarIcon } from '@/components/brand/DenebLogo';
@@ -10,6 +10,7 @@ import { DenebStarIcon } from '@/components/brand/DenebLogo';
 export default function CliReferencePage() {
   const tocItems: TocItem[] = [
     { id: 'overview', title: 'CLI Overview' },
+    { id: 'doctor', title: 'deneb doctor' },
     { id: 'init', title: 'deneb init' },
     { id: 'update', title: 'deneb update' },
     { id: 'validate', title: 'deneb validate' },
@@ -64,6 +65,11 @@ export default function CliReferencePage() {
               </thead>
               <tbody className="divide-y divide-[#23283B] text-[#94A3B8]">
                 <tr>
+                  <td className="p-3 sm:p-4 font-mono font-bold text-white">deneb doctor</td>
+                  <td className="p-3 sm:p-4">Run comprehensive environment, manifest & asset diagnostic checks</td>
+                  <td className="p-3 sm:p-4 text-emerald-400">System & compliance scorecard</td>
+                </tr>
+                <tr>
                   <td className="p-3 sm:p-4 font-mono font-bold text-white">deneb init</td>
                   <td className="p-3 sm:p-4">Initialize & configure existing Next.js app for Fivora</td>
                   <td className="p-3 sm:p-4 text-emerald-400">fivora-template.json, site-data.json, scripts</td>
@@ -93,11 +99,40 @@ export default function CliReferencePage() {
           </div>
         </section>
 
-        {/* 1. deneb init */}
+        {/* 1. deneb doctor */}
+        <section id="doctor" className="space-y-4 pt-4 border-t border-[#23283B]">
+          <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+            <Activity className="w-5 h-5 text-emerald-400" />
+            <span>1. deneb doctor (System & Diagnostic Health Check)</span>
+          </h2>
+          <p className="text-sm text-[#94A3B8] leading-relaxed">
+            Performs an in-depth 6-phase diagnostic check of your development environment, Next.js configuration, Manifest v2 contract, merchant site data bindings, and security cleanliness before packaging.
+          </p>
+
+          <CodeBlock
+            code={`# Run diagnostic doctor check:\nnpx @deneb-ui/cli doctor\n\n# Or diagnose a specific directory:\ndeneb doctor ./templates/nextjs`}
+            language="bash"
+            filename="terminal"
+          />
+
+          <div className="p-4 rounded-xl border border-[#23283B] bg-[#0A0D17] text-xs text-[#94A3B8] space-y-2">
+            <div className="font-semibold text-white">The 6 Doctor Diagnostic Checks:</div>
+            <ul className="list-disc list-inside space-y-1">
+              <li><strong className="text-white">System & Runtime:</strong> Verifies Node.js &ge; 18.0 and package manager availability.</li>
+              <li><strong className="text-white">Project Dependencies:</strong> Confirms Next.js 14/15, @deneb-ui/ui, and @deneb-ui/cli.</li>
+              <li><strong className="text-white">Static Export:</strong> Validates <code className="text-white font-mono">output: &apos;export&apos;</code> in next.config.</li>
+              <li><strong className="text-white">Fivora Manifest v2:</strong> Checks fivora-template.json version, strict mode, and root page routes.</li>
+              <li><strong className="text-white">Reactive Site Data:</strong> Verifies merchant metadata, theme color tokens, and content structure.</li>
+              <li><strong className="text-white">Cleanliness & Security:</strong> Checks brand preview assets and ensures secrets isolation (no raw .env files).</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* 2. deneb init */}
         <section id="init" className="space-y-4 pt-4 border-t border-[#23283B]">
           <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
             <Zap className="w-5 h-5 text-[#818CF8]" />
-            <span>1. deneb init (Initialize Project)</span>
+            <span>2. deneb init (Initialize Project)</span>
           </h2>
           <p className="text-sm text-[#94A3B8] leading-relaxed">
             Converts any ongoing or existing Next.js project into a certified Fivora storefront template. It scans your pages, creates the version 2 contract manifest, sets up merchant default data, injects developer scripts, and installs <code className="text-white font-mono bg-white/5 px-1.5 py-0.5 rounded">@deneb-ui/ui</code>:
@@ -120,11 +155,11 @@ export default function CliReferencePage() {
           </div>
         </section>
 
-        {/* 2. deneb update */}
+        {/* 3. deneb update */}
         <section id="update" className="space-y-4 pt-4 border-t border-[#23283B]">
           <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
             <RefreshCw className="w-5 h-5 text-[#818CF8]" />
-            <span>2. deneb update (Update Packages & Components)</span>
+            <span>3. deneb update (Update Packages & Components)</span>
           </h2>
           <p className="text-sm text-[#94A3B8] leading-relaxed">
             Upgrades <code className="text-white font-mono bg-white/5 px-1.5 py-0.5 rounded">@deneb-ui/ui</code> and <code className="text-white font-mono bg-white/5 px-1.5 py-0.5 rounded">@deneb-ui/cli</code> to the latest releases, and automatically synchronizes all installed components in <code className="text-white font-mono bg-white/5 px-1.5 py-0.5 rounded">src/components/ui/</code> with the latest registry blueprints.
@@ -137,11 +172,11 @@ export default function CliReferencePage() {
           />
         </section>
 
-        {/* 3. deneb validate */}
+        {/* 4. deneb validate */}
         <section id="validate" className="space-y-4 pt-4 border-t border-[#23283B]">
           <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
             <ShieldCheck className="w-5 h-5 text-emerald-400" />
-            <span>3. deneb validate (Preflight Contract Validator)</span>
+            <span>4. deneb validate (Preflight Contract Validator)</span>
           </h2>
           <p className="text-sm text-[#94A3B8] leading-relaxed">
             Runs compliance checks against your template to verify data bindings, field paths, static markers, and zero broken links. Also supports the <code className="text-white font-mono bg-white/5 px-1.5 py-0.5 rounded">--zip</code> flag to bundle upon validation:
@@ -154,11 +189,11 @@ export default function CliReferencePage() {
           />
         </section>
 
-        {/* 4. deneb zip */}
+        {/* 5. deneb zip */}
         <section id="zip" className="space-y-4 pt-4 border-t border-[#23283B]">
           <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
             <FolderArchive className="w-5 h-5 text-[#818CF8]" />
-            <span>4. deneb zip / pack (Clean ZIP Packaging)</span>
+            <span>5. deneb zip / pack (Clean ZIP Packaging)</span>
           </h2>
           <p className="text-sm text-[#94A3B8] leading-relaxed">
             Packages your storefront source into an upload-ready <code className="text-white font-mono bg-white/5 px-1.5 py-0.5 rounded">fivora-template.zip</code>, automatically excluding unnecessary folders, caches, and secret files (<code className="text-white font-mono">node_modules</code>, <code className="text-white font-mono">.next</code>, <code className="text-white font-mono">.git</code>, <code className="text-white font-mono">.env*</code>, <code className="text-white font-mono">.turbo</code>, logs):
@@ -171,11 +206,11 @@ export default function CliReferencePage() {
           />
         </section>
 
-        {/* 5. deneb validate-and-zip */}
+        {/* 6. deneb validate-and-zip */}
         <section id="validate-and-zip" className="space-y-4 pt-4 border-t border-[#23283B]">
           <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
             <PackageCheck className="w-5 h-5 text-[#818CF8]" />
-            <span>5. deneb validate-and-zip (Validate & Package in 1 Step)</span>
+            <span>6. deneb validate-and-zip (Validate & Package in 1 Step)</span>
           </h2>
           <p className="text-sm text-[#94A3B8] leading-relaxed">
             The recommended release command before uploading to the Fivora Developer Portal. It executes the full preflight validator first, and <strong className="text-white">only packages the clean ZIP if all checks pass 100%</strong>, guaranteeing zero marketplace rejection:
@@ -188,28 +223,28 @@ export default function CliReferencePage() {
           />
         </section>
 
-        {/* 6. deneb add */}
+        {/* 7. deneb add */}
         <section id="add" className="space-y-4 pt-4 border-t border-[#23283B]">
           <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
             <Terminal className="w-5 h-5 text-[#818CF8]" />
-            <span>6. deneb add (Component Registry)</span>
+            <span>7. deneb add (Component Registry)</span>
           </h2>
           <p className="text-sm text-[#94A3B8] leading-relaxed">
             Add or update specific DENEB UI components directly into your project&apos;s <code className="text-white font-mono bg-white/5 px-1.5 py-0.5 rounded">src/components/ui/</code> directory:
           </p>
 
           <CodeBlock
-            code={`# List all available components:\nnpx @deneb-ui/cli add list\n\n# Add individual components:\nnpx @deneb-ui/cli add product-card\nnpx @deneb-ui/cli add contact-actions\nnpx @deneb-ui/cli add location-card\nnpx @deneb-ui/cli add whatsapp-button\nnpx @deneb-ui/cli add dialog\n\n# Install the complete component registry at once:\nnpx @deneb-ui/cli add all`}
+            code={`# List all 28+ available components:\nnpx @deneb-ui/cli add list\n\n# Add high-converting commerce components:\nnpx @deneb-ui/cli add sticky-mobile-bar\nnpx @deneb-ui/cli add trust-badges\nnpx @deneb-ui/cli add product-quickview\nnpx @deneb-ui/cli add cookie-consent\n\n# Add UI & layout components:\nnpx @deneb-ui/cli add product-card\nnpx @deneb-ui/cli add contact-actions\nnpx @deneb-ui/cli add location-card\nnpx @deneb-ui/cli add whatsapp-button\nnpx @deneb-ui/cli add dialog\n\n# Install the complete component registry at once:\nnpx @deneb-ui/cli add all`}
             language="bash"
             filename="terminal"
           />
         </section>
 
-        {/* 7. create-template */}
+        {/* 8. create-template */}
         <section id="create" className="space-y-4 pt-4 border-t border-[#23283B]">
           <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
             <Box className="w-5 h-5 text-[#818CF8]" />
-            <span>7. @deneb-ui/create-template (Start from Scratch)</span>
+            <span>8. @deneb-ui/create-template (Start from Scratch)</span>
           </h2>
           <p className="text-sm text-[#94A3B8] leading-relaxed">
             Scaffold a complete Next.js 15 App Router storefront with Tailwind CSS, built-in visual editing bindings, and pre-configured DENEB smart actions:
@@ -222,11 +257,11 @@ export default function CliReferencePage() {
           />
         </section>
 
-        {/* 8. deneb lab */}
+        {/* 9. deneb lab */}
         <section id="lab" className="space-y-4 pt-4 border-t border-[#23283B]">
           <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-[#818CF8]" />
-            <span>8. deneb lab (Local Visual Editing Lab)</span>
+            <span>9. deneb lab (Local Visual Editing Lab)</span>
           </h2>
           <p className="text-sm text-[#94A3B8] leading-relaxed">
             Starts the interactive Visual Editing Lab simulation at <code className="text-white font-mono bg-white/5 px-1.5 py-0.5 rounded">http://localhost:3001</code> to test live content updates and iframe messaging before submitting to Fivora:
