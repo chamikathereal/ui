@@ -132,10 +132,10 @@ export default function CliReferencePage() {
         <section id="init" className="space-y-4 pt-4 border-t border-[#23283B]">
           <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
             <Zap className="w-5 h-5 text-[#818CF8]" />
-            <span>2. deneb init (Initialize Project)</span>
+            <span>2. deneb init (Universal Template Converter & Initializer)</span>
           </h2>
           <p className="text-sm text-[#94A3B8] leading-relaxed">
-            Converts any ongoing or existing Next.js project into a certified Fivora storefront template. It scans your pages, creates the version 2 contract manifest, sets up merchant default data, injects developer scripts, and installs <code className="text-white font-mono bg-white/5 px-1.5 py-0.5 rounded">@deneb-ui/ui</code>:
+            Automatically converts any existing or in-progress Next.js storefront—built with <strong className="text-white">shadcn/ui</strong>, <strong className="text-white">HeroUI (NextUI)</strong>, <strong className="text-white">Tailwind CSS</strong>, or custom React components—into a 100% editable Fivora storefront template.
           </p>
 
           <CodeBlock
@@ -144,13 +144,15 @@ export default function CliReferencePage() {
             filename="terminal"
           />
 
-          <div className="p-4 rounded-xl border border-[#23283B] bg-[#0A0D17] text-xs text-[#94A3B8] space-y-2">
-            <div className="font-semibold text-white">What deneb init configures automatically:</div>
-            <ul className="list-disc list-inside space-y-1">
-              <li><strong className="text-white">fivora-template.json:</strong> Generates Manifest v2 with strict visual editing and declared pages.</li>
-              <li><strong className="text-white">src/data/site-data.json:</strong> Creates the merchant configuration and content structure.</li>
-              <li><strong className="text-white">package.json scripts:</strong> Injects <code className="text-white font-mono">lab</code>, <code className="text-white font-mono">validate</code>, <code className="text-white font-mono">zip</code>, <code className="text-white font-mono">validate-and-zip</code>, and <code className="text-white font-mono">update:deneb</code>.</li>
-              <li><strong className="text-white">Dependencies:</strong> Installs <code className="text-white font-mono">@deneb-ui/ui</code> and <code className="text-white font-mono">@deneb-ui/cli</code>.</li>
+          <div className="p-4 rounded-xl border border-[#23283B] bg-[#0A0D17] text-xs text-[#94A3B8] space-y-3">
+            <div className="font-semibold text-white">Automated 6-Phase Conversion Engine:</div>
+            <ul className="list-disc list-inside space-y-1.5 leading-relaxed">
+              <li><strong className="text-white">Framework & Component Detection:</strong> Automatically identifies shadcn/ui (<code className="text-white font-mono">@radix-ui</code>, <code className="text-white font-mono">components.json</code>), HeroUI, and Tailwind CSS.</li>
+              <li><strong className="text-white">Safe Backup:</strong> Creates a reversible timestamped copy of your project in <code className="text-white font-mono">.deneb-backup/</code> before touching any code.</li>
+              <li><strong className="text-white">Root Layout Auto-Mount:</strong> Injects and wraps your root layout with <code className="text-white font-mono">SiteDataProvider</code> and links initial site data.</li>
+              <li><strong className="text-white">JSX Content Extraction & Marker Injection:</strong> Scans all headings (<code className="text-white font-mono">h1-h6</code>), paragraphs (<code className="text-white font-mono">p</code>), buttons, inputs, placeholders, card titles, and images; extracts hardcoded values into <code className="text-white font-mono">site-data.json</code> and attaches <code className="text-white font-mono">data-preview-field-path</code> and <code className="text-white font-mono">data-preview-page-key</code>.</li>
+              <li><strong className="text-white">UI Component Harmonization:</strong> Ensures components in <code className="text-white font-mono">src/components/ui/</code> forward preview attributes and integrate seamlessly.</li>
+              <li><strong className="text-white">Synchronized Spec v2 Contract:</strong> Builds matching <code className="text-white font-mono">fivora-template.json</code> editor schemas and injects standard workflow scripts (<code className="text-white font-mono">lab</code>, <code className="text-white font-mono">validate</code>, <code className="text-white font-mono">zip</code>).</li>
             </ul>
           </div>
         </section>
