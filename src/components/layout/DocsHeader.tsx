@@ -22,7 +22,7 @@ export function DocsHeader({ onToggleSidebar }: { onToggleSidebar?: () => void }
   return (
     <>
       <header className="sticky top-0 z-40 w-full border-b border-[#23283B] bg-[#080A12]/80 backdrop-blur-xl">
-        <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 max-w-7xl 2xl:max-w-[1400px] mx-auto">
+        <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 w-full">
           {/* Left: Mobile trigger & Logo & Primary Nav */}
           <div className="flex items-center gap-6">
             {onToggleSidebar && (
