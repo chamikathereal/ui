@@ -9,7 +9,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#080A12] text-[#F1F5F9]">
+    <div suppressHydrationWarning className="min-h-screen flex flex-col bg-[#080A12] text-[#F1F5F9]">
       <DocsHeader onToggleSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)} />
 
       {/* Mobile Drawer */}

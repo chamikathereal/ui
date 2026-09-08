@@ -55,7 +55,7 @@ export default function InstallationPage() {
   };
 
   return (
-    <div className="flex w-full gap-8 lg:gap-10">
+    <div suppressHydrationWarning className="flex w-full gap-8 lg:gap-10">
       <div className="flex-1 min-w-0 py-6 space-y-10">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-[#94A3B8]">
