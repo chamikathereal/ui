@@ -48,7 +48,7 @@ export default function CliReferencePage() {
             <span>deneb add</span>
           </h2>
           <p className="text-sm text-[#94A3B8]">
-            Add specific components directly into your project's <code className="text-white font-mono bg-white/5 px-1.5 py-0.5 rounded">src/components/ui/</code> directory:
+            Add specific components directly into your project&apos;s <code className="text-white font-mono bg-white/5 px-1.5 py-0.5 rounded">src/components/ui/</code> directory:
           </p>
 
           <CodeBlock
