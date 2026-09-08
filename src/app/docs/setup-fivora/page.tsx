@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import {
   Sparkles,
@@ -14,6 +14,8 @@ import {
   RefreshCw,
   Cpu,
   HelpCircle,
+  Copy,
+  Check,
 } from 'lucide-react';
 import { CodeBlock } from '@/components/docs/CodeBlock';
 import { TableOfContents, TocItem } from '@/components/layout/TableOfContents';
@@ -21,6 +23,43 @@ import { DenebStarIcon } from '@/components/brand/DenebLogo';
 
 export default function SetupFivoraPage() {
   const [activePathway, setActivePathway] = useState<'convert' | 'scratch'>('convert');
+  const [copied, setCopied] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const handleCopyPage = async () => {
+    if (!contentRef.current) return;
+    try {
+      const clone = contentRef.current.cloneNode(true) as HTMLElement;
+      // Remove elements marked as no-copy (such as this copy button itself)
+      clone.querySelectorAll('[data-no-copy]').forEach((el) => el.remove());
+      // Remove any button elements (such as code block copy buttons) so their text isn't included
+      clone.querySelectorAll('button').forEach((el) => el.remove());
+
+      const text = (clone.innerText || clone.textContent || '')
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
+
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        textArea.remove();
+      }
+
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy page content:', err);
+    }
+  };
 
   const tocItems: TocItem[] = [
     { id: 'overview', title: 'Architecture & Stack' },
@@ -35,14 +74,37 @@ export default function SetupFivoraPage() {
 
   return (
     <div suppressHydrationWarning className="flex w-full gap-8 lg:gap-10">
-      <div className="flex-1 min-w-0 py-6 space-y-12">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-[#94A3B8]">
-          <Link href="/docs/introduction" className="hover:text-white transition-colors">
-            Docs
-          </Link>
-          <span>/</span>
-          <span className="text-[#818CF8] font-semibold">Set Up Fivora</span>
+      <div ref={contentRef} className="flex-1 min-w-0 py-6 space-y-12">
+        {/* Breadcrumb & Copy Action */}
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-xs text-[#94A3B8]">
+            <Link href="/docs/introduction" className="hover:text-white transition-colors">
+              Docs
+            </Link>
+            <span>/</span>
+            <span className="text-[#818CF8] font-semibold">Set Up Fivora</span>
+          </div>
+
+          <div data-no-copy className="shrink-0">
+            <button
+              onClick={handleCopyPage}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-[#23283B] bg-[#0E1220]/80 hover:bg-[#161B2E] text-[#94A3B8] hover:text-white hover:border-[#818CF8]/40 transition-all text-xs font-medium shadow-sm hover:shadow-md active:scale-95 group cursor-pointer"
+              title="Copy entire page content"
+              aria-label="Copy entire page content"
+            >
+              {copied ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-[#4ADE80]" />
+                  <span className="text-[#4ADE80] font-medium">Copied page</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5 text-[#818CF8] group-hover:text-white transition-colors" />
+                  <span>Copy page</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Page Header */}
@@ -196,8 +258,20 @@ export default function SetupFivoraPage() {
               Converting an Existing Running Frontend
             </h2>
             <p className="text-sm text-[#94A3B8]">
-              Follow these 6 sequential steps to convert your existing React / Next.js frontend into a fully compliant Fivora template.
+              Follow these sequential steps to convert your existing React / Next.js frontend into a fully compliant Fivora template, or use the 1-command automated converter.
             </p>
+          </div>
+
+          {/* Automated Conversion Quick Callout */}
+          <div className="p-5 rounded-2xl border border-[#818CF8]/30 bg-gradient-to-r from-[#818CF8]/10 via-[#0A0D17] to-[#818CF8]/5 space-y-3">
+            <div className="flex items-center gap-2 text-sm font-bold text-white">
+              <Sparkles className="w-4 h-4 text-[#818CF8]" />
+              <span>Instant 1-Command Auto-Conversion with <code className="text-[#A5B4FC] font-mono">deneb init</code> (Recommended)</span>
+            </div>
+            <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed">
+              If your storefront is already built with <strong className="text-white">shadcn/ui</strong>, <strong className="text-white">HeroUI</strong>, or <strong className="text-white">Tailwind CSS</strong>, you do not have to write markers manually. Simply run <code className="text-white font-mono bg-black/40 px-1.5 py-0.5 rounded">npx @deneb-ui/cli init</code>. The DENEB converter engine automatically detects your UI framework, mounts <code className="text-white font-mono">SiteDataProvider</code> in your root layout, extracts all hardcoded text, images, and search placeholders into <code className="text-white font-mono">site-data.json</code>, and instruments your JSX elements with <code className="text-white font-mono">data-preview-field-path</code> markers in seconds!
+            </p>
+            <CodeBlock code="npx @deneb-ui/cli init" language="bash" />
           </div>
 
           {/* STEP 1 */}
