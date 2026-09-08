@@ -9,7 +9,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#080A12] text-[#F1F5F9]">
+    <div suppressHydrationWarning className="min-h-screen flex flex-col bg-[#080A12] text-[#F1F5F9]">
       <DocsHeader onToggleSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)} />
 
       {/* Mobile Drawer */}
@@ -37,8 +37,8 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         </div>
       )}
 
-      {/* Main Container: matching shadcn/ui layout width and responsive spacing */}
-      <div className="flex-1 max-w-7xl 2xl:max-w-[1400px] mx-auto w-full px-4 sm:px-6 lg:px-8 flex gap-6 lg:gap-10">
+      {/* Main Container: sidebar docked to the left with full viewport width */}
+      <div className="flex-1 w-full px-4 sm:px-6 lg:px-8 flex gap-6 lg:gap-10">
         {/* Desktop Sticky Sidebar (visible on md: 768px+) */}
         <DocsSidebar className="hidden md:block border-r border-[#23283B]/60 pr-6 shrink-0 w-[220px] lg:w-[240px] sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto" />
 

@@ -100,7 +100,7 @@ export function ComponentDocPage({
   ];
 
   return (
-    <div className="flex w-full gap-8 lg:gap-10">
+    <div suppressHydrationWarning className="flex w-full gap-8 lg:gap-10">
       {/* Main Content Area */}
       <div className="flex-1 min-w-0 py-6 space-y-10">
         {/* Breadcrumb */}

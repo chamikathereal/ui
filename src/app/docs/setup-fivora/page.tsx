@@ -34,7 +34,7 @@ export default function SetupFivoraPage() {
   ];
 
   return (
-    <div className="flex w-full gap-8 lg:gap-10">
+    <div suppressHydrationWarning className="flex w-full gap-8 lg:gap-10">
       <div className="flex-1 min-w-0 py-6 space-y-12">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-[#94A3B8]">
@@ -493,11 +493,19 @@ export default function SetupFivoraPage() {
 
           <div className="p-5 rounded-2xl border border-[#23283B] bg-[#0A0D17] space-y-4">
             <div className="space-y-2">
-              <div className="text-sm font-bold text-white">Strict Sandbox Packager (Recommended)</div>
+              <div className="text-sm font-bold text-white">1-Step Preflight Validation & Clean Packaging (Recommended)</div>
               <p className="text-xs text-[#94A3B8] leading-relaxed">
-                Extracts into an isolated sandbox, runs clean npm install and Next.js build tests, and guarantees zero upload rejection:
+                Runs preflight verification and packages a clean <code className="text-white font-mono bg-white/5 px-1.5 py-0.5 rounded">fivora-template.zip</code> only when all platform checks pass:
               </p>
-              <CodeBlock code="npm run package:template\n# Or: deneb package ." language="bash" />
+              <CodeBlock code="npm run validate-and-zip\n# Or: deneb validate-and-zip .\n# Or: deneb validate and zip" language="bash" />
+            </div>
+
+            <div className="pt-3 border-t border-[#23283B] space-y-2">
+              <div className="text-sm font-bold text-white">Quick Clean ZIP (Fast packaging without sandbox)</div>
+              <p className="text-xs text-[#94A3B8] leading-relaxed">
+                Quickly strips <code className="text-white font-mono">node_modules</code>, <code className="text-white font-mono">.next</code>, <code className="text-white font-mono">.git</code>, and <code className="text-white font-mono">.env*</code> to generate <code className="text-white font-mono">fivora-template.zip</code>:
+              </p>
+              <CodeBlock code="npm run zip\n# Or: deneb zip ." language="bash" />
             </div>
 
             <div className="pt-3 border-t border-[#23283B] space-y-2">
