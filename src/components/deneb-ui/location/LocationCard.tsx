@@ -44,16 +44,16 @@ export function LocationCard({
   }
 
   const cardStyles: React.CSSProperties = {
-    padding: '2rem',
+    padding: '1.75rem 1.5rem',
     borderRadius: '1rem',
-    border: '1px solid var(--color-border, #e2e8f0)',
-    backgroundColor: 'var(--color-surface, #ffffff)',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
+    border: '1px solid var(--color-border, #23283B)',
+    backgroundColor: 'var(--color-surface, #0E111C)',
+    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     textAlign: 'center',
-    gap: '1rem',
+    gap: '0.875rem',
     maxWidth: '400px',
     ...style,
   };
@@ -62,8 +62,9 @@ export function LocationCard({
     width: '48px',
     height: '48px',
     borderRadius: '50%',
-    backgroundColor: 'var(--color-secondary, #f1f5f9)',
-    color: 'var(--color-primary, #0f172a)',
+    backgroundColor: 'rgba(129, 140, 248, 0.12)',
+    color: '#818CF8',
+    border: '1px solid rgba(129, 140, 248, 0.25)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -82,7 +83,7 @@ export function LocationCard({
         as="h3"
         id={titleFieldPath || (fieldPath ? `${fieldPath}.title` : 'contact.locationTitle')}
         defaultValue={title}
-        style={{ margin: 0, fontSize: '1.25rem', fontWeight: 600, color: 'var(--color-text, #0f172a)' }}
+        style={{ margin: 0, fontSize: '1.15rem', fontWeight: 600, color: 'var(--color-text, #F1F5F9)' }}
       />
 
       <Address

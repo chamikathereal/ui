@@ -83,26 +83,39 @@ export default function InstallationPage() {
         </div>
 
         {/* Green/Indigo Recommended Highlight Banner (like shadcn/ui) */}
-        <div className="relative overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/40 via-[#0E1524] to-emerald-950/30 p-5 shadow-lg">
-          <div className="flex items-start gap-3">
-            <div className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-              <Zap className="w-5 h-5" />
+        <div className="relative overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/40 via-[#0E1524] to-emerald-950/30 p-4 sm:p-5 shadow-lg">
+          <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shrink-0">
+                <Zap className="w-5 h-5" />
+              </div>
+              <div className="sm:hidden">
+                <h3 className="text-sm font-bold text-white flex items-center gap-2 flex-wrap">
+                  <span>Recommended for new projects</span>
+                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">
+                    Fastest
+                  </span>
+                </h3>
+              </div>
             </div>
-            <div>
-              <h3 className="text-sm font-bold text-white mb-1 flex items-center gap-2">
-                <span>Recommended for new projects</span>
-                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">
-                  Fastest
-                </span>
-              </h3>
-              <p className="text-xs sm:text-sm text-emerald-200/80 leading-relaxed mb-3">
+
+            <div className="flex-1 min-w-0 w-full space-y-2.5">
+              <div className="hidden sm:block">
+                <h3 className="text-sm font-bold text-white mb-1 flex items-center gap-2 flex-wrap">
+                  <span>Recommended for new projects</span>
+                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">
+                    Fastest
+                  </span>
+                </h3>
+              </div>
+              <p className="text-xs sm:text-sm text-emerald-200/80 leading-relaxed">
                 Use <code className="text-white font-mono bg-black/40 px-1.5 py-0.5 rounded">create-deneb</code> to scaffold a pre-validated, high-converting storefront with all smart action components configured out of the box.
               </p>
-              <div className="flex items-center gap-3 flex-wrap">
+              <div className="pt-1 w-full min-w-0">
                 <CodeBlock
                   code="npx @deneb-ui/create-template my-store"
                   language="bash"
-                  className="!my-0 !p-2 max-w-md text-xs"
+                  className="!my-0 w-full"
                 />
               </div>
             </div>
@@ -204,21 +217,21 @@ export default function InstallationPage() {
               CLI interactive prompts:
             </h4>
             <div className="space-y-2 text-xs font-mono text-[#94A3B8]">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#818CF8]" />
-                <span>Which style would you like to use? › <strong className="text-white">Celestial Dark (Deneb)</strong></span>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#818CF8] shrink-0 mt-0.5" />
+                <span className="break-words">Which style would you like to use? › <strong className="text-white">Celestial Dark (Deneb)</strong></span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#818CF8]" />
-                <span>Which color would you like as base? › <strong className="text-white">Obsidian & Indigo (#818CF8)</strong></span>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#818CF8] shrink-0 mt-0.5" />
+                <span className="break-words">Which color would you like as base? › <strong className="text-white">Obsidian & Indigo (#818CF8)</strong></span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#818CF8]" />
-                <span>Where is your global CSS file? › <strong className="text-white">src/app/globals.css</strong></span>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#818CF8] shrink-0 mt-0.5" />
+                <span className="break-words">Where is your global CSS file? › <strong className="text-white">src/app/globals.css</strong></span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#818CF8]" />
-                <span>Configure import alias for components? › <strong className="text-white">@/components</strong></span>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#818CF8] shrink-0 mt-0.5" />
+                <span className="break-words">Configure import alias for components? › <strong className="text-white">@/components</strong></span>
               </div>
             </div>
           </div>

@@ -181,12 +181,12 @@ export default function HomePage() {
 
             <div className="relative z-10 w-full flex items-center justify-center">
               {activeTab === 'contact' && (
-                <div className="space-y-4 max-w-md w-full text-center p-6 rounded-2xl border border-[#23283B] bg-[#0E1220]/90 backdrop-blur-md shadow-2xl">
+                <div className="space-y-4 max-w-xl w-full text-center p-6 sm:p-8 rounded-2xl border border-[#23283B] bg-[#0E1220]/90 backdrop-blur-md shadow-2xl">
                   <span className="text-[10px] font-mono uppercase text-[#818CF8] font-bold">
                     Multi-Channel Fallback
                   </span>
                   <h3 className="font-bold text-lg text-white">Direct Customer Actions</h3>
-                  <p className="text-xs text-[#94A3B8]">
+                  <p className="text-xs text-[#94A3B8] max-w-md mx-auto">
                     Buttons automatically hide if merchant data is omitted. Try clicking!
                   </p>
                   <div className="flex justify-center pt-2">
@@ -203,7 +203,7 @@ export default function HomePage() {
 
               {activeTab === 'product' && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-xl w-full">
-                  <div className="rounded-2xl border border-[#23283B] bg-[#0E111C] p-4 space-y-3 shadow-lg hover:border-[#818CF8]/50 transition-all group">
+                  <div className="rounded-2xl border border-[#23283B] bg-[#0E111C] p-4 space-y-3 shadow-lg hover:border-[#818CF8]/50 transition-all group flex flex-col justify-between">
                     <div className="relative aspect-video rounded-xl bg-gradient-to-tr from-[#1E1B4B] to-[#0F172A] flex items-center justify-center overflow-hidden border border-white/5">
                       <div className="p-3 rounded-full bg-[#818CF8]/10 text-[#818CF8] group-hover:scale-110 transition-transform">
                         <Sparkles className="w-8 h-8" />
@@ -221,16 +221,15 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <div className="rounded-2xl border border-[#23283B] bg-[#0E111C] p-4 flex flex-col justify-between">
-                    <LocationCard
-                      address="742 Evergreen Celestial Way"
-                      city="San Francisco"
-                      country="USA"
-                      postalCode="94102"
-                      mapUrl="https://maps.google.com"
-                      title="Deneb Flagship Store"
-                    />
-                  </div>
+                  <LocationCard
+                    address="742 Evergreen Celestial Way"
+                    city="San Francisco"
+                    country="USA"
+                    postalCode="94102"
+                    mapUrl="https://maps.google.com"
+                    title="Deneb Flagship Store"
+                    className="h-full justify-between hover:border-[#818CF8]/50 transition-all !max-w-none shadow-lg"
+                  />
                 </div>
               )}
 
@@ -326,7 +325,7 @@ export default function HomePage() {
           <div className="flex items-center gap-3">
             <DenebLogo size="sm" asLink={false} />
             <span className="text-xs text-[#94A3B8]">
-              Created by <strong className="text-white font-semibold">Chamika Gayashan & Induranga Kawishwara</strong>. Collaborate with FIVORA.
+              Powered by <strong className="text-white font-semibold">DENEB</strong>. Collaborate with FIVORA.
             </span>
           </div>
 
