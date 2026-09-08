@@ -372,7 +372,7 @@ export function useFieldStyle(path?: string): GenericRecord | null {
   return useMemo(() => {
     if (!path || !siteData?.content) return null;
     return getFieldStyle(siteData.content, path);
-  }, [siteData?.content, path]);
+  }, [siteData.content, path]);
 }
 
 /**
@@ -383,4 +383,3 @@ export const DenebDataProvider = SiteDataProvider;
 export const useDenebData = useSiteData;
 export const DenebDataContext = SiteDataContext;
 export type DenebData = SiteData;
-
