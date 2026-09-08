@@ -23,9 +23,9 @@ export default function InstallationPage() {
 
   const tocItems: TocItem[] = [
     { id: 'quickstart', title: 'Quick Scaffolding' },
+    { id: 'create-template', title: 'Use create-template' },
     { id: 'cli', title: 'Use the CLI' },
     { id: 'existing', title: 'Manual Installation' },
-    { id: 'frameworks', title: 'Framework Guides' },
   ];
 
   const getCliCommand = () => {
@@ -55,8 +55,8 @@ export default function InstallationPage() {
   };
 
   return (
-    <div className="flex w-full justify-between gap-10">
-      <div className="flex-1 min-w-0 max-w-4xl py-6 space-y-10">
+    <div className="flex w-full gap-8 lg:gap-10">
+      <div className="flex-1 min-w-0 py-6 space-y-10">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-[#94A3B8]">
           <Link href="/docs/installation" className="hover:text-white transition-colors">
@@ -82,102 +82,83 @@ export default function InstallationPage() {
           </p>
         </div>
 
-        {/* Green/Indigo Recommended Highlight Banner (like shadcn/ui) */}
-        <div className="relative overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/40 via-[#0E1524] to-emerald-950/30 p-4 sm:p-5 shadow-lg">
-          <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shrink-0">
-                <Zap className="w-5 h-5" />
-              </div>
-              <div className="sm:hidden">
-                <h3 className="text-sm font-bold text-white flex items-center gap-2 flex-wrap">
-                  <span>Recommended for new projects</span>
-                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">
-                    Fastest
-                  </span>
-                </h3>
-              </div>
-            </div>
-
-            <div className="flex-1 min-w-0 w-full space-y-2.5">
-              <div className="hidden sm:block">
-                <h3 className="text-sm font-bold text-white mb-1 flex items-center gap-2 flex-wrap">
-                  <span>Recommended for new projects</span>
-                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">
-                    Fastest
-                  </span>
-                </h3>
-              </div>
-              <p className="text-xs sm:text-sm text-emerald-200/80 leading-relaxed">
-                Use <code className="text-white font-mono bg-black/40 px-1.5 py-0.5 rounded">create-deneb</code> to scaffold a pre-validated, high-converting storefront with all smart action components configured out of the box.
-              </p>
-              <div className="pt-1 w-full min-w-0">
-                <CodeBlock
-                  code="npx @deneb-ui/create-template my-store"
-                  language="bash"
-                  className="!my-0 w-full"
-                />
-              </div>
-            </div>
-          </div>
+        {/* Recommended Highlight Banner (like shadcn/ui) */}
+        <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-xs sm:text-sm text-emerald-200/90 leading-relaxed">
+          <strong className="font-semibold text-emerald-300">Recommended for new projects:</strong> Use <code className="bg-black/40 px-1.5 py-0.5 rounded font-mono text-white">create-deneb</code> to build your preset visually and generate the right setup command for your framework.
         </div>
 
-        {/* 3 Pathway Cards (Use deneb/create, Use the CLI, Existing Project) */}
-        <div id="quickstart" className="space-y-4">
-          <h2 className="text-xl font-bold text-white tracking-tight">
-            Choose your setup pathway
-          </h2>
+        {/* 3 Pathway Cards (like shadcn/ui) */}
+        <div id="quickstart" className="space-y-3">
+          <p className="text-sm font-medium text-white">
+            Choose the setup that matches your starting point.
+          </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Pathway 1 */}
-            <div className="p-5 rounded-2xl border border-[#23283B] bg-[#0A0D17] hover:border-[#818CF8]/50 hover:shadow-[0_0_20px_rgba(129,140,248,0.15)] transition-all group flex flex-col justify-between">
-              <div className="space-y-2.5">
-                <div className="p-2 w-fit rounded-xl bg-[#818CF8]/10 text-[#818CF8] border border-[#818CF8]/20 group-hover:scale-105 transition-transform">
-                  <Sparkles className="w-5 h-5" />
-                </div>
-                <h3 className="text-sm font-bold text-white">Use create-template</h3>
+            <a
+              href="#create-template"
+              className="p-5 rounded-2xl border border-[#23283B] bg-[#0A0D17] hover:border-[#818CF8]/50 hover:shadow-[0_0_20px_rgba(129,140,248,0.15)] transition-all group flex flex-col justify-between"
+            >
+              <div className="space-y-2">
+                <h3 className="text-sm font-bold text-white group-hover:text-[#818CF8] transition-colors">Use create-template</h3>
                 <p className="text-xs text-[#94A3B8] leading-relaxed">
                   Build your storefront preset visually and generate a full production template.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#23283B]">
-                <code className="text-[11px] font-mono text-[#A5B4FC]">npx create-deneb</code>
-              </div>
-            </div>
+            </a>
 
             {/* Pathway 2 */}
-            <div className="p-5 rounded-2xl border border-[#23283B] bg-[#0A0D17] hover:border-[#818CF8]/50 hover:shadow-[0_0_20px_rgba(129,140,248,0.15)] transition-all group flex flex-col justify-between">
-              <div className="space-y-2.5">
-                <div className="p-2 w-fit rounded-xl bg-[#818CF8]/10 text-[#818CF8] border border-[#818CF8]/20 group-hover:scale-105 transition-transform">
-                  <Terminal className="w-5 h-5" />
-                </div>
-                <h3 className="text-sm font-bold text-white">Use the CLI</h3>
+            <a
+              href="#cli"
+              className="p-5 rounded-2xl border border-[#23283B] bg-[#0A0D17] hover:border-[#818CF8]/50 hover:shadow-[0_0_20px_rgba(129,140,248,0.15)] transition-all group flex flex-col justify-between"
+            >
+              <div className="space-y-2">
+                <h3 className="text-sm font-bold text-white group-hover:text-[#818CF8] transition-colors">Use the CLI</h3>
                 <p className="text-xs text-[#94A3B8] leading-relaxed">
-                  Scaffold or add individual components into your existing repository on demand.
+                  Scaffold a supported template directly from the terminal.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#23283B]">
-                <code className="text-[11px] font-mono text-[#A5B4FC]">deneb add &lt;comp&gt;</code>
-              </div>
-            </div>
+            </a>
 
             {/* Pathway 3 */}
-            <div className="p-5 rounded-2xl border border-[#23283B] bg-[#0A0D17] hover:border-[#818CF8]/50 hover:shadow-[0_0_20px_rgba(129,140,248,0.15)] transition-all group flex flex-col justify-between">
-              <div className="space-y-2.5">
-                <div className="p-2 w-fit rounded-xl bg-[#818CF8]/10 text-[#818CF8] border border-[#818CF8]/20 group-hover:scale-105 transition-transform">
-                  <Boxes className="w-5 h-5" />
-                </div>
-                <h3 className="text-sm font-bold text-white">Package Install</h3>
+            <a
+              href="#existing"
+              className="p-5 rounded-2xl border border-[#23283B] bg-[#0A0D17] hover:border-[#818CF8]/50 hover:shadow-[0_0_20px_rgba(129,140,248,0.15)] transition-all group flex flex-col justify-between"
+            >
+              <div className="space-y-2">
+                <h3 className="text-sm font-bold text-white group-hover:text-[#818CF8] transition-colors">Existing Project</h3>
                 <p className="text-xs text-[#94A3B8] leading-relaxed">
-                  Import pre-built primitives directly from the zero-dependency npm package.
+                  Add @deneb-ui/ui to an app you already created.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#23283B]">
-                <code className="text-[11px] font-mono text-[#A5B4FC]">npm i @deneb-ui/ui</code>
-              </div>
-            </div>
+            </a>
           </div>
         </div>
+
+        {/* Section 1: Use create-template */}
+        <section id="create-template" className="space-y-3 pt-6 border-t border-[#23283B]">
+          <div className="space-y-1">
+            <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              Use create-template
+            </h2>
+            <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed">
+              Build your preset visually, preview your choices, and generate a framework-specific setup command.
+            </p>
+          </div>
+
+          <div className="pt-2">
+            <Link
+              href="/docs/templates"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-white text-black hover:bg-white/90 transition-all shadow-md"
+            >
+              <span>Open create-template</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+          <p className="text-xs text-[#64748B]">
+            Available for Next.js, Vite, and React storefront presets.
+          </p>
+        </section>
 
         {/* Step-by-Step CLI Guide */}
         <section id="cli" className="space-y-6 pt-4 border-t border-[#23283B]">

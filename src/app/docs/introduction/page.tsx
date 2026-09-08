@@ -14,8 +14,8 @@ export default function IntroductionPage() {
   ];
 
   return (
-    <div className="flex w-full justify-between gap-10">
-      <div className="flex-1 min-w-0 max-w-4xl py-6 space-y-10">
+    <div className="flex w-full gap-8 lg:gap-10">
+      <div className="flex-1 min-w-0 py-6 space-y-10">
         <div className="flex items-center gap-2 text-xs text-[#94A3B8]">
           <Link href="/docs/installation" className="hover:text-white transition-colors">
             Docs
@@ -97,7 +97,7 @@ export default function IntroductionPage() {
             </div>
 
             <a
-              href="https://github.com/chamikathereal"
+              href="https://github.com/deneb-ui/ui"
               target="_blank"
               rel="noreferrer"
               className="px-3.5 py-1.5 rounded-lg border border-[#23283B] bg-[#121625] text-xs font-semibold text-white hover:border-[#818CF8]/40 hover:bg-[#818CF8]/10 transition-all flex items-center gap-1.5"
