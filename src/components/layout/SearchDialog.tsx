@@ -47,8 +47,14 @@ export const SEARCH_INDEX: SearchItem[] = [
   { title: 'SocialButton', category: 'Components', slug: '/docs/components/social-button', description: 'Individual branded social media buttons.' },
 
   // Storefront Sections
-  { title: 'Hero', category: 'Components', slug: '/docs/components/hero', description: 'Centered and split hero banner sections with CTA actions.' },
+  { title: 'ProductDetail', category: 'Components', slug: '/docs/components/product-detail', description: 'Complete single product view with multi-image gallery, size/color selector, WhatsApp CTA, and policy tabs.' },
+  { title: 'ProductQuickView', category: 'Components', slug: '/docs/components/product-quickview', description: 'Instant lightbox modal product inspection with quantity counter and live editing.' },
+  { title: 'ProductGrid', category: 'Components', slug: '/docs/components/product-grid', description: 'Responsive commerce product showcase grid with category filter tabs and quick-view hook.' },
   { title: 'ProductCard', category: 'Components', slug: '/docs/components/product-card', description: 'E-commerce product display with pricing, badge, and quick buy.' },
+  { title: 'CustomerReviews', category: 'Components', slug: '/docs/components/customer-reviews', description: 'Social proof review showcase with aggregate rating and verified buyer authentication.' },
+  { title: 'TrustBadges', category: 'Components', slug: '/docs/components/trust-badges', description: 'Security and conversion guarantee strip (SSL, free delivery, returns).' },
+  { title: 'StickyMobileBar', category: 'Components', slug: '/docs/components/sticky-mobile-bar', description: 'Sticky bottom checkout and WhatsApp order bar for mobile commerce.' },
+  { title: 'Hero', category: 'Components', slug: '/docs/components/hero', description: 'Centered and split hero banner sections with CTA actions.' },
   { title: 'PricingCard', category: 'Components', slug: '/docs/components/pricing-card', description: 'Tiered pricing card with feature checks and highlights.' },
   { title: 'TestimonialCard', category: 'Components', slug: '/docs/components/testimonial-card', description: 'Customer review card with avatar and 5-star rating.' },
   { title: 'ServiceCard', category: 'Components', slug: '/docs/components/service-card', description: 'Storefront service highlight card with icon and description.' },
