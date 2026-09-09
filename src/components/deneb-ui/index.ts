@@ -29,7 +29,9 @@ export * from './StickyMobileBar';
 export * from './TrustBadges';
 export * from './ProductQuickView';
 export * from './CookieConsentBanner';
-export * from './ThemeStyles';
+export * from './cart/useCart';
+export * from './EditableCartDrawer';
+export * from './EditableFilterSidebar';
 export * from './SiteDataProvider';
 
 // Smart template components & actions
@@ -73,6 +75,8 @@ export { TrustBadges } from './TrustBadges';
 export { ProductQuickView } from './ProductQuickView';
 export { CookieConsentBanner } from './CookieConsentBanner';
 export { FloatingContactWidget } from './contact/FloatingContactWidget';
+export { EditableCartDrawer as CartDrawer } from './EditableCartDrawer';
+export { EditableFilterSidebar as FilterSidebar } from './EditableFilterSidebar';
 
 
 /**
@@ -83,7 +87,3 @@ export const DENEB_FRAMEWORK_NAME = 'DENEB UI';
 export const DENEB_FRAMEWORK_VERSION = '2.0.0';
 export const DENEB_AUTHOR = 'Chamika Gayashan & Induranga Kawishwara';
 
-// Backward compatibility alias
-export const CEEG_FRAMEWORK_NAME = DENEB_FRAMEWORK_NAME;
-export const CEEG_FRAMEWORK_VERSION = DENEB_FRAMEWORK_VERSION;
-export const CEEG_AUTHOR = DENEB_AUTHOR;

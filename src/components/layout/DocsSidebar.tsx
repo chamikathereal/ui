@@ -85,6 +85,8 @@ export const SIDEBAR_NAV: NavSection[] = [
     title: 'Storefront Sections',
     icon: <LayoutGrid className="w-4 h-4 text-[#818CF8]" />,
     items: [
+      { title: 'CartDrawer', href: '/docs/components/cart-drawer', badge: 'Hot', isNew: true },
+      { title: 'FilterSidebar', href: '/docs/components/filter-sidebar', isNew: true },
       { title: 'ProductDetail', href: '/docs/components/product-detail', badge: 'Hot', isNew: true },
       { title: 'ProductQuickView', href: '/docs/components/product-quickview', badge: 'Modal', isNew: true },
       { title: 'ProductGrid', href: '/docs/components/product-grid', isNew: true },
