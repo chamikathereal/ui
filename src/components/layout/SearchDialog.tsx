@@ -47,6 +47,8 @@ export const SEARCH_INDEX: SearchItem[] = [
   { title: 'SocialButton', category: 'Components', slug: '/docs/components/social-button', description: 'Individual branded social media buttons.' },
 
   // Storefront Sections
+  { title: 'CartDrawer', category: 'Components', slug: '/docs/components/cart-drawer', description: 'Slide-over shopping cart drawer with quantity steppers, free shipping progress bar, and WhatsApp checkout.' },
+  { title: 'FilterSidebar', category: 'Components', slug: '/docs/components/filter-sidebar', description: 'Faceted catalog filtering sidebar with category chips, price range slider, and size swatches.' },
   { title: 'ProductDetail', category: 'Components', slug: '/docs/components/product-detail', description: 'Complete single product view with multi-image gallery, size/color selector, WhatsApp CTA, and policy tabs.' },
   { title: 'ProductQuickView', category: 'Components', slug: '/docs/components/product-quickview', description: 'Instant lightbox modal product inspection with quantity counter and live editing.' },
   { title: 'ProductGrid', category: 'Components', slug: '/docs/components/product-grid', description: 'Responsive commerce product showcase grid with category filter tabs and quick-view hook.' },

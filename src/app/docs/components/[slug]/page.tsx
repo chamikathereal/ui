@@ -19,6 +19,8 @@ export function generateStaticParams() {
     { slug: 'social-links' },
     { slug: 'social-button' },
     { slug: 'hero' },
+    { slug: 'cart-drawer' },
+    { slug: 'filter-sidebar' },
     { slug: 'product-detail' },
     { slug: 'product-quickview' },
     { slug: 'product-grid' },

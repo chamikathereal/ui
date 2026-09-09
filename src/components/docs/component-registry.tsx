@@ -33,6 +33,10 @@ import {
   AnnouncementBar,
   CategoryPills,
   ContactForm,
+  CartDrawer,
+  FilterSidebar,
+  CartProvider,
+  useCart,
 } from '@/components/deneb-ui';
 import { ComponentDocPageProps } from './ComponentDocPage';
 import { Sparkles, Phone, MessageSquare, MapPin, Clock, Star, ShoppingBag, ShieldCheck } from 'lucide-react';
@@ -452,6 +456,100 @@ function InteractiveContactFormDemo() {
       <ContactForm
         formTitle="Send an Inquiry"
         submitButtonText="Send Message"
+      />
+    </div>
+  );
+}
+
+function InteractiveCartDrawerDemoInner() {
+  const { openCart, addItem, totalCount } = useCart();
+
+  return (
+    <div className="flex flex-col items-center justify-center p-8 gap-4 w-full">
+      <div className="flex flex-wrap gap-3 justify-center">
+        <button
+          type="button"
+          onClick={() =>
+            addItem({
+              id: 'shoe-vanta-1',
+              name: 'Vanta Aero-X Runner',
+              price: 189.99,
+              size: 'US 10',
+              color: 'Phantom Black',
+              image: '/products/vanta-aero-x.png',
+            })
+          }
+          className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#1E2337] text-white hover:bg-[#282F49] border border-[#2D3552] transition-colors cursor-pointer"
+        >
+          + Add Vanta Runner ($189.99)
+        </button>
+        <button
+          type="button"
+          onClick={() =>
+            addItem({
+              id: 'shoe-hyper-2',
+              name: 'HyperPulse Knit',
+              price: 145.0,
+              size: 'US 9.5',
+              color: 'Sonic White',
+              image: '/products/hyperpulse-knit.png',
+            })
+          }
+          className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#1E2337] text-white hover:bg-[#282F49] border border-[#2D3552] transition-colors cursor-pointer"
+        >
+          + Add HyperPulse ($145.00)
+        </button>
+      </div>
+
+      <button
+        type="button"
+        onClick={openCart}
+        className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+      >
+        <ShoppingBag className="w-4 h-4" />
+        <span>Open Cart Drawer ({totalCount} items)</span>
+      </button>
+
+      <CartDrawer
+        whatsappNumber="94770000000"
+        storeName="DENEB Athletics"
+        freeShippingThreshold={200}
+      />
+    </div>
+  );
+}
+
+function InteractiveCartDrawerDemo() {
+  return (
+    <CartProvider>
+      <InteractiveCartDrawerDemoInner />
+    </CartProvider>
+  );
+}
+
+function InteractiveFilterSidebarDemo() {
+  const [filters, setFilters] = useState({
+    selectedCategories: ['Running'],
+    priceRange: [0, 220] as [number, number],
+    selectedSizes: ['US 10'],
+    inStockOnly: true,
+  });
+
+  return (
+    <div className="w-full max-w-sm mx-auto p-2">
+      <FilterSidebar
+        categories={['Running', 'Lifestyle', 'Basketball', 'Training']}
+        sizes={['US 8', 'US 9', 'US 10', 'US 11']}
+        maxPrice={250}
+        initialFilters={filters}
+        onFilterChange={(f) =>
+          setFilters({
+            selectedCategories: f.selectedCategories,
+            priceRange: f.priceRange,
+            selectedSizes: f.selectedSizes,
+            inStockOnly: Boolean(f.inStockOnly),
+          })
+        }
       />
     </div>
   );
@@ -1097,5 +1195,97 @@ export default function Contact() {
       { name: 'submitLabel', type: 'string', defaultValue: '"Submit"', description: 'Label on submit button.' },
     ],
     prevPage: { title: 'CategoryPills', href: '/docs/components/category-pills' },
+    nextPage: { title: 'CartDrawer', href: '/docs/components/cart-drawer' },
+  },
+
+  'cart-drawer': {
+    title: 'CartDrawer',
+    description: 'High-converting slide-over shopping cart drawer with quantity steppers, free shipping progress bar, direct WhatsApp checkout, and visual editing bindings.',
+    category: 'E-Commerce',
+    badge: 'Hot',
+    previewComponent: <InteractiveCartDrawerDemo />,
+    previewCode: `import { CartProvider, useCart, CartDrawer } from "@deneb-ui/ui";
+
+function StoreLayout({ children }) {
+  const { openCart, totalCount } = useCart();
+
+  return (
+    <div>
+      <header>
+        <button onClick={openCart}>Cart ({totalCount})</button>
+      </header>
+      {children}
+      <CartDrawer
+        whatsappNumber="94770000000"
+        storeName="DENEB Athletics"
+        freeShippingThreshold={200}
+      />
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <CartProvider>
+      <StoreLayout />
+    </CartProvider>
+  );
+}`,
+    usageCode: `import { CartProvider, useCart, CartDrawer } from "@deneb-ui/ui";`,
+    cliCommand: `npx @deneb-ui/cli add cart-drawer`,
+    props: [
+      { name: 'basePath', type: 'string', defaultValue: '"cart"', description: 'JSON schema path for visual editing annotations.' },
+      { name: 'whatsappNumber', type: 'string', required: true, description: 'Business WhatsApp phone number with country code.' },
+      { name: 'storeName', type: 'string', description: 'Store name for order greeting.' },
+      { name: 'currency', type: 'string', defaultValue: '"$"', description: 'Currency symbol.' },
+      { name: 'freeShippingThreshold', type: 'number', description: 'Amount required to unlock free shipping banner.' },
+      { name: 'checkoutUrl', type: 'string', description: 'Optional secondary direct checkout URL.' },
+      { name: 'onCheckout', type: '(items, total) => void', description: 'Callback when checkout button is clicked.' },
+    ],
+    prevPage: { title: 'ContactForm', href: '/docs/components/contact-form' },
+    nextPage: { title: 'FilterSidebar', href: '/docs/components/filter-sidebar' },
+  },
+
+  'filter-sidebar': {
+    title: 'FilterSidebar',
+    description: 'Faceted catalog filtering sidebar with category selector chips, price range slider, size grid swatches, and live active filter counts.',
+    category: 'E-Commerce',
+    badge: 'Commerce',
+    previewComponent: <InteractiveFilterSidebarDemo />,
+    previewCode: `import { useState } from "react";
+import { FilterSidebar } from "@deneb-ui/ui";
+
+export default function Catalog() {
+  const [filters, setFilters] = useState({
+    selectedCategories: ["Running"],
+    priceRange: [0, 200],
+    selectedSizes: ["US 10"],
+    inStockOnly: true,
+  });
+
+  return (
+    <div className="flex gap-8">
+      <FilterSidebar
+        categories={["Running", "Lifestyle", "Training"]}
+        sizes={["US 8", "US 9", "US 10", "US 11"]}
+        maxPrice={300}
+        onFilterChange={(f) => setFilters(f)}
+      />
+      <main>Catalog Products</main>
+    </div>
+  );
+}`,
+    usageCode: `import { FilterSidebar } from "@deneb-ui/ui";`,
+    cliCommand: `npx @deneb-ui/cli add filter-sidebar`,
+    props: [
+      { name: 'basePath', type: 'string', defaultValue: '"filters"', description: 'Visual editing schema path.' },
+      { name: 'categories', type: 'string[]', description: 'List of product categories.' },
+      { name: 'sizes', type: 'string[]', description: 'Available size filter options.' },
+      { name: 'minPrice', type: 'number', defaultValue: '0', description: 'Minimum price filter bound.' },
+      { name: 'maxPrice', type: 'number', defaultValue: '300', description: 'Maximum price filter bound.' },
+      { name: 'onFilterChange', type: '(filters) => void', description: 'Callback fired on any filter adjustment.' },
+    ],
+    prevPage: { title: 'CartDrawer', href: '/docs/components/cart-drawer' },
   },
 };
+
