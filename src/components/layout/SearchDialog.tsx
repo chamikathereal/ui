@@ -17,6 +17,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { title: 'Introduction', category: 'Getting Started', slug: '/docs/introduction', description: 'Overview of the DENEB UI Framework and philosophy.' },
   { title: 'Installation', category: 'Getting Started', slug: '/docs/installation', description: 'How to install and configure DENEB UI in your project.' },
   { title: 'Theming & Tokens', category: 'Getting Started', slug: '/docs/theming', description: 'Customizing celestial themes, colors, and variables.' },
+  { title: 'Responsive Design', category: 'Getting Started', slug: '/docs/responsive-design', description: 'Mobile, tablet, and desktop behavior for every DENEB UI component.' },
   { title: 'CLI Reference', category: 'CLI', slug: '/docs/cli', description: 'All commands for @deneb-ui/cli (add, validate, init).' },
   
   // Core Primitives
