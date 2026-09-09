@@ -28,6 +28,7 @@ export default function InstallationPage() {
     { id: 'cli-deep-dive', title: 'CLI Init In-Depth' },
     { id: 'cli-flags', title: 'CLI Flags & Options' },
     { id: 'generated-files', title: 'Generated Files' },
+    { id: 'responsive', title: 'Responsive Setup' },
     { id: 'existing', title: 'Manual Installation' },
   ];
 
@@ -248,7 +249,7 @@ export default function InstallationPage() {
               <span>What Happens During `deneb init`</span>
             </h2>
             <p className="text-sm text-[#94A3B8] leading-relaxed">
-              When executed in an existing Next.js project, <code className="text-[#A5B4FC] bg-[#818CF8]/10 px-1 py-0.5 rounded font-mono">npx @deneb-ui/cli init</code> activates the <strong>Adaptive Conversion Engine</strong>. It does not just copy files — it analyzes your JSX/TSX syntax and transforms static designs into live-editable components:
+              When executed in an existing Next.js project, <code className="text-[#A5B4FC] bg-[#818CF8]/10 px-1 py-0.5 rounded font-mono">npx @deneb-ui/cli init</code> activates <strong>Deneb ARC</strong> (Adaptive Refactoring Compiler) — an AST-based engine that transforms static React/Next.js storefronts into Fivora-editable templates while preserving your original design:
             </p>
           </div>
 
@@ -361,6 +362,16 @@ export default function InstallationPage() {
                   <td className="p-3 sm:p-4 font-mono text-emerald-400">--dry-run</td>
                 </tr>
                 <tr>
+                  <td className="p-3 sm:p-4 font-mono font-bold text-white">--explain</td>
+                  <td className="p-3 sm:p-4">Print ARC transformation plan with confidence scores before applying changes</td>
+                  <td className="p-3 sm:p-4 font-mono text-emerald-400">--explain</td>
+                </tr>
+                <tr>
+                  <td className="p-3 sm:p-4 font-mono font-bold text-white">--legacy</td>
+                  <td className="p-3 sm:p-4">Use the legacy regex converter instead of Deneb ARC (default engine)</td>
+                  <td className="p-3 sm:p-4 font-mono text-emerald-400">--legacy</td>
+                </tr>
+                <tr>
                   <td className="p-3 sm:p-4 font-mono font-bold text-white">--skip-backup</td>
                   <td className="p-3 sm:p-4">Skip generating the timestamped rollback folder <code className="text-white">.deneb-backup-*</code></td>
                   <td className="p-3 sm:p-4 font-mono text-emerald-400">--skip-backup</td>
@@ -392,6 +403,40 @@ export default function InstallationPage() {
           </div>
         </section>
 
+        {/* Responsive setup */}
+        <section id="responsive" className="space-y-4 pt-6 border-t border-[#23283B]">
+          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Responsive Setup (Automatic)
+          </h2>
+          <p className="text-sm text-[#94A3B8] leading-relaxed">
+            All DENEB UI components adapt to mobile, tablet, and desktop. Wrap your app in{' '}
+            <code className="text-white bg-black/40 px-1.5 py-0.5 rounded font-mono">SiteDataProvider</code> — it
+            automatically injects <code className="text-white bg-black/40 px-1.5 py-0.5 rounded font-mono">ResponsiveBaseStyles</code>{' '}
+            with viewport-aware CSS for nav, grids, filters, dialogs, and commerce bars.
+          </p>
+          <CodeBlock
+            code={`import { SiteDataProvider } from "@deneb-ui/ui";
+import siteData from "@/data/site-data.json";
+
+export default function RootLayout({ children }) {
+  return (
+    <SiteDataProvider initialSiteData={siteData}>
+      {children}
+    </SiteDataProvider>
+  );
+}`}
+            language="tsx"
+            filename="app/layout.tsx"
+          />
+          <Link
+            href="/docs/responsive-design"
+            className="inline-flex items-center gap-2 text-xs font-semibold text-[#818CF8] hover:text-white transition-colors"
+          >
+            <span>Read the full Responsive Design guide</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </section>
+
         {/* Existing Project Manual Installation */}
         <section id="existing" className="space-y-6 pt-4 border-t border-[#23283B]">
           <div className="space-y-2">
@@ -412,7 +457,7 @@ export default function InstallationPage() {
             <div className="space-y-2">
               <span className="text-xs font-bold uppercase text-[#CBD5E1]">Step 2: Import and render components</span>
               <CodeBlock
-                code={`import {\n  Button,\n  Card,\n  ContactActions,\n  WhatsAppButton,\n  ProductCard,\n  BusinessHours\n} from "@deneb-ui/ui";\n\nexport default function Page() {\n  return (\n    <main className="p-8 space-y-6">\n      <h1 className="text-3xl font-bold">My Storefront</h1>\n      <ContactActions \n        phone="+1234567890" \n        whatsapp="1234567890" \n        email="hello@example.com" \n      />\n      <Button variant="glow">Explore Catalog</Button>\n    </main>\n  );\n}`}
+                code={`import {\n  SiteDataProvider,\n  Button,\n  ContactActions,\n  Grid,\n  Section,\n  ProductCard,\n} from "@deneb-ui/ui";\n\nexport default function Page() {\n  return (\n    <SiteDataProvider>\n      <main>\n        <Section name="home-hero" padding="lg">\n          <h1>My Storefront</h1>\n          <ContactActions\n            phone="+1234567890"\n            whatsapp="1234567890"\n            email="hello@example.com"\n            layout="wrap"\n          />\n        </Section>\n        <Section name="home-products" padding="md">\n          <Grid columns={{ mobile: 1, tablet: 2, desktop: 3 }} gap="md">\n            {/* ProductCard items */}\n          </Grid>\n        </Section>\n      </main>\n    </SiteDataProvider>\n  );\n}`}
                 language="tsx"
                 filename="app/page.tsx"
               />
@@ -423,10 +468,10 @@ export default function InstallationPage() {
         {/* Next link */}
         <div className="pt-8 border-t border-[#23283B] flex justify-end">
           <Link
-            href="/docs/theming"
+            href="/docs/responsive-design"
             className="flex items-center gap-2 text-xs font-semibold text-[#818CF8] hover:text-white transition-colors"
           >
-            <span>Next: Theming & Tokens</span>
+            <span>Next: Responsive Design</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

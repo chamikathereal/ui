@@ -34,6 +34,7 @@ export const SIDEBAR_NAV: NavSection[] = [
       { title: 'Installation', href: '/docs/installation' },
       { title: 'Set Up Fivora', href: '/docs/setup-fivora', badge: 'Guide', isNew: true },
       { title: 'Theming & Tokens', href: '/docs/theming' },
+      { title: 'Responsive Design', href: '/docs/responsive-design', badge: 'New', isNew: true },
       { title: 'CLI Reference', href: '/docs/cli' },
       { title: 'Storefront Scaffolding', href: '/docs/templates' },
     ],

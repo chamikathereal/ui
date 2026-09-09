@@ -990,7 +990,7 @@ export default function QuickViewDemo() {
 
   'product-grid': {
     title: 'ProductGrid',
-    description: 'A responsive commerce catalog grid with interactive category filtering tabs, auto-balancing columns, and quick-view hook.',
+    description: 'Responsive commerce catalog grid with category filter tabs and configurable columns per device (mobile / tablet / desktop). Includes quick-view hook.',
     category: 'Storefront Sections',
     badge: 'Commerce',
     previewComponent: <InteractiveProductGridDemo />,
@@ -1248,7 +1248,7 @@ export default function App() {
 
   'filter-sidebar': {
     title: 'FilterSidebar',
-    description: 'Faceted catalog filtering sidebar with category selector chips, price range slider, size grid swatches, and live active filter counts.',
+    description: 'Faceted catalog filtering sidebar with category chips, price slider, and size swatches. Collapses behind a mobile toggle below 768px; always visible on tablet and desktop.',
     category: 'E-Commerce',
     badge: 'Commerce',
     previewComponent: <InteractiveFilterSidebarDemo />,

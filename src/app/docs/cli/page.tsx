@@ -135,24 +135,24 @@ export default function CliReferencePage() {
             <span>2. deneb init (Universal Template Converter & Initializer)</span>
           </h2>
           <p className="text-sm text-[#94A3B8] leading-relaxed">
-            Automatically converts any existing or in-progress Next.js storefront—built with <strong className="text-white">shadcn/ui</strong>, <strong className="text-white">HeroUI (NextUI)</strong>, <strong className="text-white">Tailwind CSS</strong>, or custom React components—into a 100% editable Fivora storefront template.
+            Runs <strong className="text-white">Deneb ARC</strong> (Adaptive Refactoring Compiler) by default — an AST pipeline that converts Next.js App Router and Pages Router storefronts into Fivora-editable templates while preserving your design. Use <code className="text-white font-mono">--legacy</code> for the older regex converter.
           </p>
 
           <CodeBlock
-            code={`# Inside your Next.js project root:\nnpx @deneb-ui/cli init\n\n# Or if installed globally / devDependencies:\ndeneb init`}
+            code={`# Inside your Next.js project root (Deneb ARC — default):\nnpx @deneb-ui/cli init\n\n# Preview transformation plan without writing files:\nnpx @deneb-ui/cli init --explain\n\n# Use legacy regex converter:\nnpx @deneb-ui/cli init --legacy`}
             language="bash"
             filename="terminal"
           />
 
           <div className="p-4 rounded-xl border border-[#23283B] bg-[#0A0D17] text-xs text-[#94A3B8] space-y-3">
-            <div className="font-semibold text-white">Automated 6-Phase Conversion Engine:</div>
+            <div className="font-semibold text-white">Deneb ARC Pipeline (default):</div>
             <ul className="list-disc list-inside space-y-1.5 leading-relaxed">
-              <li><strong className="text-white">Framework & Component Detection:</strong> Automatically identifies shadcn/ui (<code className="text-white font-mono">@radix-ui</code>, <code className="text-white font-mono">components.json</code>), HeroUI, and Tailwind CSS.</li>
-              <li><strong className="text-white">Safe Backup:</strong> Creates a reversible timestamped copy of your project in <code className="text-white font-mono">.deneb-backup/</code> before touching any code.</li>
-              <li><strong className="text-white">Root Layout Auto-Mount:</strong> Injects and wraps your root layout with <code className="text-white font-mono">SiteDataProvider</code> and links initial site data.</li>
-              <li><strong className="text-white">JSX Content Extraction & Marker Injection:</strong> Scans all headings (<code className="text-white font-mono">h1-h6</code>), paragraphs (<code className="text-white font-mono">p</code>), buttons, inputs, placeholders, card titles, and images; extracts hardcoded values into <code className="text-white font-mono">site-data.json</code> and attaches <code className="text-white font-mono">data-preview-field-path</code> and <code className="text-white font-mono">data-preview-page-key</code>.</li>
-              <li><strong className="text-white">UI Component Harmonization:</strong> Ensures components in <code className="text-white font-mono">src/components/ui/</code> forward preview attributes and integrate seamlessly.</li>
-              <li><strong className="text-white">Synchronized Spec v2 Contract:</strong> Builds matching <code className="text-white font-mono">fivora-template.json</code> editor schemas and injects standard workflow scripts (<code className="text-white font-mono">lab</code>, <code className="text-white font-mono">validate</code>, <code className="text-white font-mono">zip</code>).</li>
+              <li><strong className="text-white">Project Scanner:</strong> Discovers routes, dependencies, and reachable pages (App Router + Pages Router).</li>
+              <li><strong className="text-white">Semantic Analysis:</strong> Identifies editable text, images, URLs, collections, and CTA action/label pairs.</li>
+              <li><strong className="text-white">AST Transformation:</strong> Injects <code className="text-white font-mono">data-preview-field-path</code>, site-data bindings, collection markers, and span-wrapped text.</li>
+              <li><strong className="text-white">Manifest Generation:</strong> Writes <code className="text-white font-mono">site-data.json</code> and <code className="text-white font-mono">fivora-template.json</code> with Fivora strict contract self-validation.</li>
+              <li><strong className="text-white">Static Export Config:</strong> Configures <code className="text-white font-mono">next.config</code> for <code className="text-white font-mono">output: &apos;export&apos;</code> when needed.</li>
+              <li><strong className="text-white">Safe Backup & Journal:</strong> Timestamped rollback in <code className="text-white font-mono">.deneb-backup-*</code> and run journal in <code className="text-white font-mono">.deneb/runs/</code>.</li>
             </ul>
           </div>
         </section>
