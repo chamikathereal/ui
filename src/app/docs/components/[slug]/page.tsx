@@ -41,6 +41,9 @@ export function generateStaticParams() {
     { slug: 'typography' },
     { slug: 'grid' },
     { slug: 'image' },
+    { slug: 'google-feedback' },
+    { slug: 'testimonial-section' },
+    { slug: 'map' },
   ];
 }
 
